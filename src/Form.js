@@ -24,7 +24,7 @@ const Form = () => {
       return (
     <div className='form'>
     
-    <input type='text'  onChange={(e)=>setTodoValue(e.target.value)} value={todoValue} />
+    <input type='text'  required onChange={(e)=>setTodoValue(e.target.value)} value={todoValue} />
     <button className='btn btn-danger mx-2' onClick={handleSubmit}>Add</button>
     
     </div>
