@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Add_item } from './Todoslice';
+import { Add_item,saveData } from './Todoslice';
 const Form = () => {
     const todos = useSelector((state) => state.Todo.value);
      const dispatch = useDispatch();
@@ -18,14 +18,19 @@ const Form = () => {
         }
         
         dispatch(Add_item(todoObj))
+
+        // dispatch(Add_item(todoObj),saveData(todoObj))
         setTodoValue('')
       }
-    
+      
+      
+      
       return (
     <div className='form'>
-    
+    {/* <form method="POST" className='d-flex'> */}
     <input type='text'  required onChange={(e)=>setTodoValue(e.target.value)} value={todoValue} />
     <button className='btn btn-danger mx-2' onClick={handleSubmit}>Add</button>
+    {/* </form>   */}
     
     </div>
   )
