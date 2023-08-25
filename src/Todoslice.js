@@ -1,7 +1,8 @@
   import { createSlice } from '@reduxjs/toolkit'
   import db from './Firebase'
   // import { dataRef } from './Firebase';
-  import { collection, updateDoc,addDoc,deleteDoc, doc } from "firebase/firestore"; 
+  import { getDocs, collection, updateDoc,addDoc,deleteDoc, doc } from "firebase/firestore"; 
+  import { useEffect } from 'react';
 
   const initialState = {
   value:[    
@@ -28,7 +29,23 @@
           } catch (e) {
             console.error("Error adding document: ", e);
           }
+
+        
         },
+        
+          
+        fetchData: async (state) => {
+          try {
+            const querySnapshot = await getDocs(collection(db, "Todo-List-2"));
+
+            const data = querySnapshot.docs.doc;
+            console.log("Data fetched from database:", data);
+            state.value = data; // Update the state with fetched data
+          } catch (e) {
+            console.error("Error fetching data: ", e);
+          }
+        },
+        
 
         removeTodo:(state,action)=>{
           const todoIdToRemove = action.payload;
@@ -41,6 +58,8 @@
           } catch (e) {
             console.error("Error deleting document: ", e);
           }
+
+          
         },
 
         
@@ -68,6 +87,6 @@
     
     })
     
-    export const {Add_item,removeTodo,editTodo,saveData} = todoSlice.actions
+    export const {Add_item,removeTodo,editTodo,saveData,fetchData} = todoSlice.actions
     
     export default todoSlice.reducer
