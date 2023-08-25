@@ -28,7 +28,7 @@ const Form = () => {
       return (
     <div className='form'>
     {/* <form method="POST" className='d-flex'> */}
-    <input type='text'  required onChange={(e)=>setTodoValue(e.target.value)} value={todoValue} />
+    <input type='text' placeholder='Enter Item' required onChange={(e)=>setTodoValue(e.target.value)} value={todoValue} />
     <button className='btn btn-danger mx-2' onClick={handleSubmit}>Add</button>
     {/* </form>   */}
     
