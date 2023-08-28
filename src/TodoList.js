@@ -9,7 +9,7 @@ const TodoList = ({ handleEditClick, editFormVisibility }) => {
 
   const [editedTodoText, setEditedTodoText] = useState('');
   const [editingTodoId, setEditingTodoId] = useState(null);
-    const todoList = [];
+  const todoList = [];
   
   const handleEditTodo = (id, editedText) => {
     dispatch(editTodo({ id, updatedTodo: editedText }));
@@ -19,7 +19,7 @@ const TodoList = ({ handleEditClick, editFormVisibility }) => {
 
   const fetchdata = async ()=>{
     try {
-      const querySnapshot =  await getDocs(collection(db, 'Todo-List'));
+      const querySnapshot =  await getDocs(collection(db, 'Todo-List-2'));
   
       // console.log(querySnapshot)
       querySnapshot.forEach((doc) => {
@@ -29,8 +29,9 @@ const TodoList = ({ handleEditClick, editFormVisibility }) => {
         })
       })
   
-      
-      console.log("Helo",todoList);
+      // todo=todoList;
+      // console.log("Helo",todoList);
+      console.log(todoList[2].id);
       // console.log(action.payload)
   
     }catch(error){
@@ -40,7 +41,6 @@ const TodoList = ({ handleEditClick, editFormVisibility }) => {
   }
   window.onload =fetchdata()
   
-
   
   return todos?.map((todo) => (
     <div key={todo.id} className='todo-box'>
@@ -91,4 +91,5 @@ const TodoList = ({ handleEditClick, editFormVisibility }) => {
   ));
 };
 
-export default TodoList;
+export default {TodoList};
+

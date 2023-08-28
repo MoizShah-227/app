@@ -4,26 +4,26 @@ import { Add_item,FetchData } from './Todoslice';
 const Form = () => {
     const todos = useSelector((state) => state.Todo.value);
      const dispatch = useDispatch();
-    
+     const [todoValue, setTodoValue]=useState('');
+     let date = new Date();
+     let time = date.getTime();
+     let todoObj={
+         id: time,
+         todo: todoValue,
+         completed: false
+     }
+
     // console.log(todos)
-    const [todoValue, setTodoValue]=useState('');
     const handleSubmit=(e)=>{
         e.preventDefault();
-        let date = new Date();
-        let time = date.getTime();
-        let todoObj={
-            id: time,
-            todo: todoValue,
-            completed: false
-        }
-        
         dispatch(Add_item(todoObj))
         // dispatch(FetchData(todoObj))
         // dispatch(Add_item(todoObj),FetchData(todoObj))
         setTodoValue('')
       }
       const getData=(e)=>{ 
-        dispatch(FetchData())
+        dispatch(FetchData(todoObj))
+
       }
       
       
@@ -40,5 +40,6 @@ const Form = () => {
     </div>
   )
 }
+
 
 export default Form

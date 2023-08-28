@@ -2,6 +2,7 @@
   import db from './Firebase'
   // import { dataRef } from './Firebase';
   import { getDocs, collection, updateDoc,addDoc,deleteDoc, doc, onSnapshot } from "firebase/firestore"; 
+import { act } from 'react-dom/test-utils';
 
   
   const initialState = {
@@ -32,27 +33,28 @@
         },
         
 
-        FetchData: async (state,action) => {
-          try {
-            const querySnapshot =  await getDocs(collection(db, 'Todo-List'));
-            const todos = [];
+        // FetchData: async (state,action) => {
+        //   console.log(action.payload);
+        //   try {
+        //     const querySnapshot =  await getDocs(collection(db, 'Todo-List'));
+        //     const todos = [];
 
-            // console.log(querySnapshot)
-            querySnapshot.forEach((doc) => {
-              todos.push({
-                id: doc.id,
-                ...doc.data(),
-              })
-            })
+        //     // console.log(querySnapshot)
+        //     querySnapshot.forEach((doc) => {
+        //       todos.push({
+        //         id: doc.id,
+        //         ...doc.data(),
+        //       })
+        //     })
 
-            state.value = todos;
-            console.log(state.value)
-            // console.log(action.payload)
+        //     state.value = todos;
+        //     // console.log(state.value)
+        //     // console.log(action.payload)
 
-          }catch(error){
-            console.log("data not fetch", error)
-          }
-          },
+        //   }catch(error){
+        //     console.log("data not fetch", error)
+        //   }
+        //   },
 
       
         
