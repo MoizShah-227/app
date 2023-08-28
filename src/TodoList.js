@@ -1,20 +1,47 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeTodo, editTodo } from './Todoslice';
-
+import { getDocs, collection, updateDoc,addDoc,deleteDoc, doc, onSnapshot } from "firebase/firestore"; 
+import db from './Firebase'
 const TodoList = ({ handleEditClick, editFormVisibility }) => {
   const todos = useSelector((state) => state.Todo.value);
   const dispatch = useDispatch();
 
   const [editedTodoText, setEditedTodoText] = useState('');
   const [editingTodoId, setEditingTodoId] = useState(null);
-
+    const todoList = [];
+  
   const handleEditTodo = (id, editedText) => {
     dispatch(editTodo({ id, updatedTodo: editedText }));
     setEditingTodoId(null);
     setEditedTodoText('');
   };
 
+  const fetchdata = async ()=>{
+    try {
+      const querySnapshot =  await getDocs(collection(db, 'Todo-List'));
+  
+      // console.log(querySnapshot)
+      querySnapshot.forEach((doc) => {
+        todoList.push({
+          id: doc.id,
+          ...doc.data(),
+        })
+      })
+  
+      
+      console.log("Helo",todoList);
+      // console.log(action.payload)
+  
+    }catch(error){
+      console.log("data not fetch", error)
+    }
+    
+  }
+  window.onload =fetchdata()
+  
+
+  
   return todos?.map((todo) => (
     <div key={todo.id} className='todo-box'>
       <div className='content'>

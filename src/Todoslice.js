@@ -2,15 +2,13 @@
   import db from './Firebase'
   // import { dataRef } from './Firebase';
   import { getDocs, collection, updateDoc,addDoc,deleteDoc, doc, onSnapshot } from "firebase/firestore"; 
-  import { useEffect, useState } from 'react';  
 
   
   const initialState = {
     value:[    
     ],
   }
-  
-  // console.log(initialState.value)
+    // console.log(initialState.value)
   export const todoSlice = createSlice({
       
       name: 'Todo',
@@ -31,9 +29,6 @@
           } catch (e) {
             console.error("Error adding document: ", e);
           }
-
-          
-
         },
         
 
@@ -50,9 +45,9 @@
               })
             })
 
-            // state.value = todos;
-            // state.value.push(action.payload);
-            console.log(state.value);
+            state.value = todos;
+            console.log(state.value)
+            // console.log(action.payload)
 
           }catch(error){
             console.log("data not fetch", error)
@@ -103,6 +98,6 @@
     
     })
     
-    export const {Add_item,removeTodo,editTodo,saveData,FetchData} = todoSlice.actions
+    export const {Add_item,removeTodo,editTodo,saveData,FetchData,todos} = todoSlice.actions
     
     export default todoSlice.reducer

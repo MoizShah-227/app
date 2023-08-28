@@ -18,12 +18,11 @@ const Form = () => {
         }
         
         dispatch(Add_item(todoObj))
-
-        // dispatch(Add_item(todoObj),saveData(todoObj))
+        // dispatch(FetchData(todoObj))
+        // dispatch(Add_item(todoObj),FetchData(todoObj))
         setTodoValue('')
       }
-      const getData=(e)=>{
-        e.preventDefault();
+      const getData=(e)=>{ 
         dispatch(FetchData())
       }
       
