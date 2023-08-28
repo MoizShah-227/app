@@ -15,7 +15,7 @@ const TodoList = ({ handleEditClick, editFormVisibility }) => {
     setEditedTodoText('');
   };
 
-  return todos.map((todo) => (
+  return todos?.map((todo) => (
     <div key={todo.id} className='todo-box'>
       <div className='content'>
         {editingTodoId === todo.id ? (

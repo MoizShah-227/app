@@ -1,20 +1,22 @@
   import { createSlice } from '@reduxjs/toolkit'
   import db from './Firebase'
   // import { dataRef } from './Firebase';
-  import { getDocs, collection, updateDoc,addDoc,deleteDoc, doc } from "firebase/firestore"; 
-  import { useEffect } from 'react';
+  import { getDocs, collection, updateDoc,addDoc,deleteDoc, doc, onSnapshot } from "firebase/firestore"; 
+  import { useEffect, useState } from 'react';  
 
+  
   const initialState = {
-  value:[    
-  ],
+    value:[    
+    ],
   }
-
+  
   // console.log(initialState.value)
-
-    export const todoSlice = createSlice({
+  export const todoSlice = createSlice({
+      
       name: 'Todo',
       initialState,
       reducers: {
+        
         Add_item: (state , action) => {
           state.value.push(action.payload);
           const id =action.payload.id;
@@ -30,24 +32,38 @@
             console.error("Error adding document: ", e);
           }
 
-        
-        },
-        
           
-        fetchData: async (state) => {
-          try {
-            const querySnapshot = await getDocs(collection(db, "Todo-List-2"));
 
-            const data = querySnapshot.docs.doc;
-            console.log("Data fetched from database:", data);
-            state.value = data; // Update the state with fetched data
-          } catch (e) {
-            console.error("Error fetching data: ", e);
-          }
         },
+        
+
+        FetchData: async (state,action) => {
+          try {
+            const querySnapshot =  await getDocs(collection(db, 'Todo-List'));
+            const todos = [];
+
+            // console.log(querySnapshot)
+            querySnapshot.forEach((doc) => {
+              todos.push({
+                id: doc.id,
+                ...doc.data(),
+              })
+            })
+
+            // state.value = todos;
+            // state.value.push(action.payload);
+            console.log(state.value);
+
+          }catch(error){
+            console.log("data not fetch", error)
+          }
+          },
+
+      
         
 
         removeTodo:(state,action)=>{
+          
           const todoIdToRemove = action.payload;
           console.log(todoIdToRemove);
           state.value = state.value.filter(todo => todo.id !== action.payload);
@@ -87,6 +103,6 @@
     
     })
     
-    export const {Add_item,removeTodo,editTodo,saveData,fetchData} = todoSlice.actions
+    export const {Add_item,removeTodo,editTodo,saveData,FetchData} = todoSlice.actions
     
     export default todoSlice.reducer

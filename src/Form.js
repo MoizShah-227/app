@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Add_item,fetchData } from './Todoslice';
+import { Add_item,FetchData } from './Todoslice';
 const Form = () => {
     const todos = useSelector((state) => state.Todo.value);
      const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const Form = () => {
       }
       const getData=(e)=>{
         e.preventDefault();
-        dispatch(fetchData())
+        dispatch(FetchData())
       }
       
       
