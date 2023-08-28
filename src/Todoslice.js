@@ -20,9 +20,9 @@ import { act } from 'react-dom/test-utils';
           state.value.push(action.payload);
           const id =action.payload.id;
           const item =action.payload.todo;
-          
+          console.log(item);
           try {
-            const docRef =addDoc(collection(db, "Todo-List-2"), {
+            const docRef = addDoc(collection(db, "Todo-List-3"), {
               id: id,
               item: item,
             });
@@ -60,19 +60,17 @@ import { act } from 'react-dom/test-utils';
         
 
         removeTodo:(state,action)=>{
-          
           const todoIdToRemove = action.payload;
           console.log(todoIdToRemove);
           state.value = state.value.filter(todo => todo.id !== action.payload);
           
           try {
-            deleteDoc(doc(db, "Todo-List-2", todoIdToRemove));
+            console.log("DOC ID",getDocs())
+            deleteDoc(doc(db, "Todo-List-3", todoIdToRemove));
             console.log("Document deleted with ID: ", todoIdToRemove);
           } catch (e) {
             console.error("Error deleting document: ", e);
           }
-
-          
         },
 
         

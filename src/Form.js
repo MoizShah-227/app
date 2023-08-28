@@ -5,26 +5,23 @@ const Form = () => {
     const todos = useSelector((state) => state.Todo.value);
      const dispatch = useDispatch();
      const [todoValue, setTodoValue]=useState('');
-     let date = new Date();
-     let time = date.getTime();
-     let todoObj={
-         id: time,
-         todo: todoValue,
-         completed: false
-     }
+     
+     
 
     // console.log(todos)
     const handleSubmit=(e)=>{
         e.preventDefault();
+        let date = new Date();
+        let time = date.getTime();
+        let todoObj={
+          id: time,
+          todo: todoValue,
+          completed: false
+      }
         dispatch(Add_item(todoObj))
-        // dispatch(FetchData(todoObj))
-        // dispatch(Add_item(todoObj),FetchData(todoObj))
         setTodoValue('')
       }
-      const getData=(e)=>{ 
-        dispatch(FetchData(todoObj))
 
-      }
       
       
       
@@ -33,7 +30,6 @@ const Form = () => {
     {/* <form method="POST" className='d-flex'> */}
     <input type='text' placeholder='Enter Item' required onChange={(e)=>setTodoValue(e.target.value)} value={todoValue} />
     <button className='btn btn-danger mx-2' onClick={handleSubmit}>Add</button>
-    <button className='btn btn-danger mx-2' onClick={getData}>Getdata</button>
 
     {/* </form>   */}
     

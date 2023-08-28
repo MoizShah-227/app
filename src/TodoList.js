@@ -9,77 +9,123 @@ const TodoList = ({ handleEditClick, editFormVisibility }) => {
 
   const [editedTodoText, setEditedTodoText] = useState('');
   const [editingTodoId, setEditingTodoId] = useState(null);
-  const todoList = [];
+  const [todoList, setTodoList] = useState([]);
+  // const todoList = [];
   
   const handleEditTodo = (id, editedText) => {
     dispatch(editTodo({ id, updatedTodo: editedText }));
     setEditingTodoId(null);
     setEditedTodoText('');
   };
-
+  
   const fetchdata = async ()=>{
     try {
-      const querySnapshot =  await getDocs(collection(db, 'Todo-List-2'));
-  
-      // console.log(querySnapshot)
+      const querySnapshot =  await getDocs(collection(db, 'Todo-List-3'));
+      const fdata =[];
       querySnapshot.forEach((doc) => {
-        todoList.push({
+        fdata.push({
           id: doc.id,
           ...doc.data(),
-        })
-      })
-  
-      // todo=todoList;
-      // console.log("Helo",todoList);
-      console.log(todoList[2].id);
-      // console.log(action.payload)
-  
+        });
+      });
+      setTodoList(fdata)
+     
+     
     }catch(error){
       console.log("data not fetch", error)
     }
     
   }
+  
   window.onload =fetchdata()
+
   
-  
-  return todos?.map((todo) => (
-    <div key={todo.id} className='todo-box'>
+  // return todos?.map((todo) => (
+  //   <div key={todo.id} className='todo-box'>
+  //     <div className='content'>
+  //       {editingTodoId === todo.id ? (
+  //         <input type='text' value={editedTodoText}onChange={(e) => setEditedTodoText(e.target.value)}/>
+  //       ) : (
+  //         <p
+  //           className='mt-2'
+  //           style={
+  //             todo.completed === true
+  //               ? { textDecoration: 'line-through' }
+  //               : { textDecoration: 'none' }
+  //           }
+  //         >
+  //           {todo.todo}
+  //         </p>
+  //       )}
+  //     </div>
+  //     <div className='actions-box'>
+  //       {editFormVisibility === false && (
+  //         <>
+  //           {editingTodoId !== todo.id ? (
+  //             <button
+  //               onClick={() => setEditingTodoId(todo.id)}
+  //               className='btn btn-dark m-1'
+  //             >
+  //               Edit
+  //             </button>
+  //           ) : (
+  //             <button
+  //               onClick={() => handleEditTodo(todo.id, editedTodoText)}
+  //               className='btn btn-dark m-1'
+  //             >
+  //               Save
+  //             </button>
+  //           )}
+  //           <button
+  //             onClick={() => dispatch(removeTodo(todo.id))}
+  //             className='btn btn-danger m-1'
+  //           >
+  //           Delete
+  //           </button>
+  //         </>
+  //       )}
+  //     </div>
+  //   </div>
+  // ));
+
+  return todoList?.map((index,j) => (
+    <div key={todoList.id} className='todo-box'>
       <div className='content'>
-        {editingTodoId === todo.id ? (
-          <input type='text' value={editedTodoText}onChange={(e) => setEditedTodoText(e.target.value)}/>
+        {editingTodoId === todoList[j].id ? (
+          <input type='text' value={todoList[j]}/>
         ) : (
           <p
             className='mt-2'
             style={
-              todo.completed === true
+              todoList[j].completed === true
                 ? { textDecoration: 'line-through' }
                 : { textDecoration: 'none' }
             }
           >
-            {todo.todo}
+            {todoList[j].item}
           </p>
         )}
       </div>
       <div className='actions-box'>
         {editFormVisibility === false && (
           <>
-            {editingTodoId !== todo.id ? (
+            {editingTodoId !== todoList[j].id ? (
               <button
-                onClick={() => setEditingTodoId(todo.id)}
+                onClick={() => setEditingTodoId(todoList.id)}
                 className='btn btn-dark m-1'
               >
                 Edit
               </button>
             ) : (
               <button
-                onClick={() => handleEditTodo(todo.id, editedTodoText)}
+                onClick={() => handleEditTodo(todoList[j].id, editedTodoText)}
                 className='btn btn-dark m-1'
               >
                 Save
               </button>
             )}
             <button
-              onClick={() => dispatch(removeTodo(todo.id))}
+              onClick={() => dispatch(removeTodo(todoList[j].id))}
               className='btn btn-danger m-1'
             >
             Delete
@@ -91,5 +137,5 @@ const TodoList = ({ handleEditClick, editFormVisibility }) => {
   ));
 };
 
-export default {TodoList};
+export default TodoList;
 
