@@ -81,53 +81,6 @@ const TodoList = ({ handleEditClick, editFormVisibility }) => {
   ));
 
 
-  //  return todos?.map((todo) => (
-  //   <div key={todo.id} className='todo-box'>
-  //     <div className='content'>
-  //       {editingTodoId === todo.id ? (
-  //         <input type='text' value={editedTodoText}onChange={(e) => setEditedTodoText(e.target.value)}/>
-  //       ) : (
-  //         <p
-  //           className='mt-2'
-  //           style={
-  //             todo.completed === true
-  //               ? { textDecoration: 'line-through' }
-  //               : { textDecoration: 'none' }
-  //           }
-  //         >
-  //           {todo.todo}
-  //         </p>
-  //       )}
-  //     </div>
-  //     <div className='actions-box'>
-  //       {editFormVisibility === false && (
-  //         <>
-  //           {editingTodoId !== todo.id ? (
-  //             <button
-  //               onClick={() => setEditingTodoId(todo.id)}
-  //               className='btn btn-dark m-1'
-  //             >
-  //               Edit
-  //             </button>
-  //           ) : (
-  //             <button
-  //               onClick={() => handleEditTodo(todo.id, editedTodoText)}
-  //               className='btn btn-dark m-1'
-  //             >
-  //               Save
-  //             </button>
-  //           )}
-  //           <button
-  //             onClick={() => dispatch(removeTodo(todo.id))}
-  //             className='btn btn-danger m-1'
-  //           >
-  //           Delete
-  //           </button>
-  //         </>
-  //       )}
-  //     </div>
-  //   </div>
-  // ));
 };
 
 export default TodoList;

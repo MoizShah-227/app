@@ -22,12 +22,14 @@
     }
   })
 
-  export const removeTodo =createAsyncThunk('Todo/fetchTodos', async(state,action)=>{
-    const todoIdToRemove = action.requestId;
+    export const removeTodo =createAsyncThunk('Todo/removetodo', async(payload)=>{
+    console.log("payload",payload);
+      const todoIdToRemove = payload;
     console.log("This is id",todoIdToRemove);
       try {
-            await deleteDoc(doc(db, "Todo-List-3", todoIdToRemove));
+           deleteDoc(doc(db, "Todo-List-3", todoIdToRemove));
             console.log("Document deleted with ID: ", todoIdToRemove);
+            // return state; 
           } catch (e) {
             console.error("Error deleting document: ",e);
   }      
@@ -89,9 +91,7 @@
           state.todos = action?.payload?.data
         })
 
-        builder.addCase(removeTodo.pending,(state,action)=>{
-          console.log("action",action.payload)
-        })
+        
       }
     
     })
