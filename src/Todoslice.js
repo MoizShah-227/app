@@ -63,12 +63,10 @@
         },
       
         editTodo(state, action){
+          console.log(action.payload)
           const { id, updatedTodo } = action.payload;
-          console.log(id,updatedTodo);
-           const todoToEdit = state.value.find(todo => todo.id === id);  
-          console.log("Hello",todoToEdit);
+          console.log(id)
           try {
-            console.log("Edit press");
             updateDoc(doc(db, "Todo-List-3", id), {
               item: updatedTodo,
             });
@@ -76,10 +74,10 @@
           } catch (e) {
             console.error("Error updating document: ", e);
           }
-          if (todoToEdit) {
-            console.log("Edit-One",todoToEdit)
-            todoToEdit.todo = updatedTodo;
-          }
+          // if (todoToEdit) {
+          //   console.log("Edit-One",todoToEdit)
+          //   todoToEdit.todo = updatedTodo;
+          // }
           
         },
 

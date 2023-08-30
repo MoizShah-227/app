@@ -62,7 +62,7 @@ const TodoList = ({ handleEditClick, editFormVisibility }) => {
               </button>
             ) : (
               <button
-                onClick={() => handleEditTodo(todo.id, editedTodoText)}
+                onClick={() => handleEditTodo(todo.docId, editedTodoText)}
                 className='btn btn-dark m-1'
               >
                 Save
