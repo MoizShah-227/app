@@ -28,7 +28,8 @@ const TodoList = ({ handleEditClick, editFormVisibility }) => {
 
 // console.log("This is",todos)
   return todos?.map((todo) => (
-    <div key={todo.id} className='todo-box'>
+    <div key={todo.docId} className='todo-box'>
+      {/* {console.log("id",todo.docId)} */}
       <div className='content'>
         {editingTodoId === todo.id ? (
           <input
@@ -68,7 +69,7 @@ const TodoList = ({ handleEditClick, editFormVisibility }) => {
               </button>
             )}
             <button
-              onClick={() => dispatch(removeTodo(todo.id))}
+              onClick={() => dispatch(removeTodo(todo.docId))}
               className='btn btn-danger m-1'
             >
               Delete

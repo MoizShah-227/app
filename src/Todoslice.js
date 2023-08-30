@@ -15,12 +15,24 @@
           ...doc.data()
         })
       })
+
      return {data: tempArr}
     } catch (error) {
       console.log("Data not fetched", error);
     }
   })
-  
+
+  export const removeTodo =createAsyncThunk('Todo/fetchTodos', async(state,action)=>{
+    const todoIdToRemove = action.requestId;
+    console.log("This is id",todoIdToRemove);
+      try {
+            await deleteDoc(doc(db, "Todo-List-3", todoIdToRemove));
+            console.log("Document deleted with ID: ", todoIdToRemove);
+          } catch (e) {
+            console.error("Error deleting document: ",e);
+  }      
+  })
+
   const initialState = {
     todos:[],
   }
@@ -45,17 +57,6 @@
             console.log("Document written with ID: ", docRef.id);
           } catch (e) {
             console.error("Error adding document: ", e);
-          }
-        },
-  
-        async removeTodo(state, action){
-          const todoIdToRemove = action.payload;
-          console.log(todoIdToRemove);
-          try {
-            await deleteDoc(doc(db, "Todo-List-3", todoIdToRemove));
-            console.log("Document deleted with ID: ", todoIdToRemove);
-          } catch (e) {
-            console.error("Error deleting document: ",e);
           }
         },
       
@@ -83,13 +84,17 @@
       },
 
       extraReducers:(builder)=>{
-        builder.addCase(fetchdata.fulfilled, (state, action)=>{
+        builder.addCase(fetchdata.fulfilled,(state, action)=>{
           console.log('action', action)
           state.todos = action?.payload?.data
+        })
+
+        builder.addCase(removeTodo.pending,(state,action)=>{
+          console.log("action",action.payload)
         })
       }
     
     })
-    
-    
+
+    export const {Add_item,editTodo,saveData,todos} = todoSlice.actions
     export default todoSlice.reducer
