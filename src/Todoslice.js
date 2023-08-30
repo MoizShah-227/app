@@ -1,6 +1,6 @@
   import { createSlice } from '@reduxjs/toolkit'
   import db from './Firebase'
-  // import { dataRef } from './Firebase';
+  import { dataRef } from './Firebase';
   import { getDocs, collection, updateDoc,addDoc,deleteDoc, doc, onSnapshot, Firestore } from "firebase/firestore";
   import { Firebase } from 'firebase/app';
 
@@ -36,9 +36,8 @@
         removeTodo: async (state, action) => {
           const todoIdToRemove = action.payload;
           console.log(todoIdToRemove);
-          state.value = state.value.filter(todo => todo.id !== todoIdToRemove);
-          // console.log(doc(todoIdToRemove))
-          try {          
+          // state.value = state.value.filter(todo => todo.id !== todoIdToRemove);
+          try {
             await deleteDoc(doc(db, "Todo-List-3", todoIdToRemove));
             console.log("Document deleted with ID: ", todoIdToRemove);
           } catch (e) {
